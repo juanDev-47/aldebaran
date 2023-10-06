@@ -37,7 +37,7 @@ H<sub>2</sub>O
 
 <h2 id="modelo-datos" style="text-align: center">Modelo de datos</h2>
 
-<img  src="documents/modelo_de_datos.png">
+<img src="documents/modelo_de_datos.png">
 
 ```
 //block of clode
