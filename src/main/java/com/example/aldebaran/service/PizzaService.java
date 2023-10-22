@@ -20,8 +20,28 @@ public class PizzaService {
         this.pizzaRepository = pizzaRepository;
     }
 
-    public List<PizzaEntity> getAll(){
+    public List<PizzaEntity> getAllJdbc(){
         return jdbcTemplate.query("SELECT * FROM pizza", new BeanPropertyRowMapper<>(PizzaEntity.class));
+    }
+
+    public List<PizzaEntity> getAll(){
+        return this.pizzaRepository.findAll();
+    }
+
+    public PizzaEntity get(int idPizza){
+        return this.pizzaRepository.findById(idPizza).orElse(null);
+    }
+
+    public PizzaEntity save(PizzaEntity pizza){
+        return this.pizzaRepository.save(pizza);
+    }
+
+    public boolean exists(int idPizza){
+        return this.pizzaRepository.existsById(idPizza);
+    }
+
+    public void delete(int idPizza){
+        this.pizzaRepository.deleteById(idPizza);
     }
 
 }
