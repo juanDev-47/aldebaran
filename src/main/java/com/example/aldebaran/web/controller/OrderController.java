@@ -2,6 +2,7 @@ package com.example.aldebaran.web.controller;
 
 import com.example.aldebaran.persistence.entity.CustomerEntity;
 import com.example.aldebaran.persistence.entity.OrderEntity;
+import com.example.aldebaran.persistence.projection.OrderSumary;
 import com.example.aldebaran.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,10 @@ public class OrderController {
     @GetMapping("/customer/{idCustomer}")
     public ResponseEntity<List<OrderEntity>> getCustomerOrders(@PathVariable String idCustomer){
         return ResponseEntity.ok(this.orderService.getCustomerOrders(idCustomer));
+    }
+
+    @GetMapping("/summary/{id}")
+    public ResponseEntity<OrderSumary> getSummary(@PathVariable int id){
+        return ResponseEntity.ok(this.orderService.getSummary(id));
     }
 }

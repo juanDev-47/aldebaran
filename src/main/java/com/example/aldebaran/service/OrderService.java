@@ -1,6 +1,7 @@
 package com.example.aldebaran.service;
 
 import com.example.aldebaran.persistence.entity.OrderEntity;
+import com.example.aldebaran.persistence.projection.OrderSumary;
 import com.example.aldebaran.persistence.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public class OrderService {
 
     public List<OrderEntity> getCustomerOrders(String idCustomer){
         return this.orderRepository.findCustomerOrders(idCustomer);
+    }
+
+    public OrderSumary getSummary(int orderId){
+        return this.orderRepository.findSummary(orderId);
     }
 
 }

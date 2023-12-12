@@ -3,6 +3,7 @@ package com.example.aldebaran.service;
 import com.example.aldebaran.persistence.entity.PizzaEntity;
 import com.example.aldebaran.persistence.repository.PizzaPagSortRepository;
 import com.example.aldebaran.persistence.repository.PizzaRepository;
+import com.example.aldebaran.service.dto.updatePizzaPriceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -76,6 +78,11 @@ public class PizzaService {
 
     public void delete(int idPizza){
         this.pizzaRepository.deleteById(idPizza);
+    }
+
+    @Transactional
+    public void updatePrice(updatePizzaPriceDTO newPrice){
+        this.pizzaRepository.updatePrice(newPrice);
     }
 
     public List<PizzaEntity> getPizzaLessThan(Double price){

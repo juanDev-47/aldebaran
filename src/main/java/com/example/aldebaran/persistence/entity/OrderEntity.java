@@ -40,8 +40,9 @@ public class OrderEntity {
     @JsonIgnore
     private CustomerEntity customer;
 
-    // se usa el tipo fethctype.eager para traer las relaciones siempre con la entidad OrderItemEntity
+    // se usa el tipo fethctype.eager para traer las relaciones siempre con la entidad OrderItemEntity, lo normar es usar lazy a no ser que realmente se necesite este comportamiento
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @OrderBy("price ASC")
     private List<OrderItemEntity> items;
 
 
