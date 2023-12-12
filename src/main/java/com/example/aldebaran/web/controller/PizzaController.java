@@ -3,6 +3,7 @@ package com.example.aldebaran.web.controller;
 import com.example.aldebaran.persistence.entity.PizzaEntity;
 import com.example.aldebaran.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,33 @@ public class PizzaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PizzaEntity>> getAll() {
-        return ResponseEntity.ok(this.pizzaService.getAll());
+    public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int elements) {
+        return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
+    }
+
+    @GetMapping("/getAllAvailable")
+    public ResponseEntity<Page<PizzaEntity>> getAllAvailable(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int elements, @RequestParam(defaultValue = "price") String sortBy, @RequestParam(defaultValue = "price") String sortDirection){
+        return ResponseEntity.ok(this.pizzaService.getAllAvailable(page, elements, sortBy, sortDirection));
+    }
+
+    @GetMapping("/getAvailable")
+    public ResponseEntity<List<PizzaEntity>> getAvailable() {
+        return ResponseEntity.ok(this.pizzaService.getByAvailableOrderByPrice());
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<PizzaEntity> getByName(@PathVariable String name){
+        return ResponseEntity.ok(this.pizzaService.getByName(name));
+    }
+
+    @GetMapping("/ingredient/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getByIngredient(@PathVariable String ingredient){
+        return ResponseEntity.ok(this.pizzaService.getByIngredient(ingredient));
+    }
+
+    @GetMapping("/notIngredient/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getByNotIngredient(@PathVariable String ingredient){
+        return ResponseEntity.ok(this.pizzaService.getByNotIngredient(ingredient));
     }
 
     @GetMapping("/allJdbc")
@@ -31,6 +57,16 @@ public class PizzaController {
     @GetMapping("/{pizzaId}")
     public ResponseEntity<PizzaEntity> getPizza(@PathVariable int pizzaId){
         return ResponseEntity.ok(this.pizzaService.get(pizzaId));
+    }
+
+    @GetMapping("/vegansCount")
+    public ResponseEntity<?> getVeganCount(){
+        return ResponseEntity.ok(this.pizzaService.countVeganPizzas());
+    }
+
+    @GetMapping("/lessPrice/{price}")
+    public ResponseEntity<List<PizzaEntity>> getLessThanPrice(@PathVariable Double price){
+        return ResponseEntity.ok(this.pizzaService.getPizzaLessThan(price));
     }
 
     @PostMapping
