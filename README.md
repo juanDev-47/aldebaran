@@ -1,4 +1,4 @@
-# API for resquest Pizzas
+# API Pizzas
 
 
 ## Objetivo del proyecto
