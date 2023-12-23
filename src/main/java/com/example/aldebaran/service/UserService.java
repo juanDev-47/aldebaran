@@ -14,6 +14,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     *Description: this function change de actual currency to dollars, de esta forma podemos generar la documentacion de nuestros proyectos
+     *
+     * @param quantity amount of money
+     * @param currency type of money: only accept MXN or COP
+     * @return quantity return amount of money in dollars
+      */
     public UserEntity save(UserEntity user) {
         return this.userRepository.save(user);
     }
